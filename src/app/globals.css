@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Great+Vibes&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #722F37;
+  --primary-foreground: #FDFCFA;
+  --background: #FDFCFA;
+  --foreground: #3D3330;
+  --accent: #8B7355;
+  --muted: #F0EDE8;
+}
+
+html {
+  font-family: 'Lato', sans-serif;
+  background: #FDFCFA;
+  /* background */
+  color: #3D3330;
+  /* foreground */
+  letter-spacing: 0.02em;
+}
+
+body,
+figure {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+}
+
+a {
+  text-decoration: none;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Playfair Display', serif;
+  color: #722F37;
+  /* primary */
+}
+
+/* Swiper overrides using new token colors */
+.mySwiper .swiper-button-prev,
+.mySwiper .swiper-button-next {
+  color: #8B7355 !important;
+  /* accent */
+  width: calc(25px / 44 * 27) !important;
+}
+
+.mySwiper .swiper-pagination-bullet-active {
+  background: #8B7355 !important;
+  /* accent */
+}
