@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { Hero } from './sections/Hero'
 import { Info } from './sections/Info'
 import { SaveTheDate } from './sections/SaveTheDate'
@@ -14,7 +15,9 @@ export default function Home() {
         <Hero />
         <Info />
         <SaveTheDate />
-        <CeremoniaRecepcion />
+        <Suspense fallback={null}>
+          <CeremoniaRecepcion />
+        </Suspense>
         <Countdown />
         <DressCode />
         <Regalos />
