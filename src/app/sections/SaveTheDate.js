@@ -11,7 +11,7 @@ export const SaveTheDate = () => {
                     src="/nicol-y-bernardo/nb-bgsavedate.jpg"
                     alt="Save the Date Background"
                     fill
-                    className="object-fill bg-position-top"
+                    className="object-cover bg-position-top"
                     priority
                 />
                 {/* Dark Overlay */}

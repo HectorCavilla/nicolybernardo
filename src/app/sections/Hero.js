@@ -22,7 +22,7 @@ export const Hero = () => {
     opacity: [1, 1],
     shouldAlwaysCompleteAnimation: true,
     children: (
-      <div className="absolute inset-0 bg-black/10 w-full h-full" />
+      <div className="absolute inset-0 bg-black/15 w-full h-full" />
     ),
   };
 
@@ -33,10 +33,17 @@ export const Hero = () => {
       <div className="absolute inset-0 flex items-center justify-center flex-col text-white z-10 p-4">
 
         <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center align-center z-10">
-          <h1 className="font-script text-[8rem] md:text-[12rem] leading-none text-white drop-shadow-[0_20px_20px_rgba(0,0,0,0.5)] flex items-center cursor-default">
-            <span className="translate-x-2">N</span>
-            <span className="-translate-x-2 translate-y-16 md:translate-y-24">B</span>
-          </h1>
+          <div className="flex items-center justify-center gap-6 md:gap-12 text-white drop-shadow-2xl font-raleway select-none">
+            <span className="text-[14rem] font-thin md:-tracking-[0.2em] leading-none">N</span>
+            <div className="flex flex-col items-center gap-4 py-2 h-40 md:h-56 justify-center opacity-90">
+              <div className="w-[1px] flex-1 bg-white/80"></div>
+              <span className="text-[.8rem] md:text-sm tracking-[0.4em] font-light uppercase [writing-mode:vertical-rl] rotate-180 whitespace-nowrap before:content-[''] before:border-l-2 before:border-white/80 before:h-6 before:w-6 before:block before:absolute before:-top-10 before:translate-x-1/2 after:content-[''] after:border-r-2 after:border-white/80 after:h-6 after:w-6 after:block after:absolute after:-bottom-10 after:translate-x-1/2">
+                Nicol y Bernardo
+              </span>
+              <div className="w-[1px] flex-1 bg-white/80"></div>
+            </div>
+            <span className="text-[14rem] font-thin leading-none md:-ml-[0.2em]">B</span>
+          </div>
 
           <div className="max-w-2xl px-6 text-center mt-24">
             <p className="text-white/90 text-lg md:text-xl font-light italic drop-shadow-md">
@@ -62,7 +69,7 @@ export const Hero = () => {
         className="w-full h-full md:hidden inset-0"
       />
       <ParallaxBanner
-        layers={[background, content]}
+        layers={[background, overlay, content]}
         className="hidden w-full h-full md:block"
       />
     </div>

@@ -37,20 +37,22 @@ module.exports = {
         // For now, I'll keep them aliased to the new tokens to prevent breaking the build immediately, 
         // but I will aim to replace them in the code.
         vino: {
-           DEFAULT: '#722F37',
-           light: '#9E424E',
-           dark: '#4A1E24',
-         },
-         gold: {
-           DEFAULT: '#8B7355', // Mapped to accent for continuity during refactor
-           light: '#E8D5CA',
-           dark: '#B08848',
-         }
+          DEFAULT: '#722F37',
+          light: '#9E424E',
+          dark: '#4A1E24',
+        },
+        gold: {
+          DEFAULT: '#8B7355', // Mapped to accent for continuity during refactor
+          light: '#E8D5CA',
+          dark: '#B08848',
+        }
       },
       fontFamily: {
         sans: ['Lato', 'sans-serif'],
         serif: ['Playfair Display', 'serif'],
         script: ['Great Vibes', 'cursive'],
+        montserrat: ['Montserrat', 'sans-serif'],
+        raleway: ['Raleway', 'sans-serif'],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
