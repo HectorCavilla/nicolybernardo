@@ -8,15 +8,15 @@ import { Countdown } from './sections/Countdown'
 import { Regalos } from './sections/Regalos'
 import { Footer } from './components/Footer'
 
-export default function Home() {
+export default function Home({ guestData, companionData }) {
   return (
     <>
       <main>
         <Hero />
-        <Info />
+        <Info guestData={guestData} companionData={companionData} />
         <SaveTheDate />
         <Suspense fallback={null}>
-          <CeremoniaRecepcion />
+          <CeremoniaRecepcion guestData={guestData} />
         </Suspense>
         <Countdown />
         <DressCode />

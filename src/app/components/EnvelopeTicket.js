@@ -42,7 +42,7 @@ export const EnvelopeTicket = ({ invitado, companiaInfo, confirmed, handleConfir
                         ) : (
                             <div onClick={(e) => { handleConfirmacion(invitado.id_invitado, e) }}>
                                 <Button>
-                                    CONFIRMAR ASISTENCIA
+                                    CONFIRMAR
                                 </Button>
                             </div>
                         )}

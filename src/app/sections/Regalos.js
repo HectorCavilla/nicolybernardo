@@ -17,8 +17,8 @@ export const Regalos = () => {
             id: 1,
             name: 'LIVERPOOL',
             color: '#E10098',
-            event: '12345678',
-            link: 'https://www.liverpool.com.mx/'
+            event: '51952453',
+            link: 'https://mesaderegalos.liverpool.com.mx/milistaderegalos/51952453'
         },
         {
             id: 2,

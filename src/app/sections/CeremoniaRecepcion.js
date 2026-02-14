@@ -6,11 +6,10 @@ import { MdLocationPin, MdOutlineCalendarMonth } from "react-icons/md"
 import { TbClockHour2 } from "react-icons/tb"
 import { Button } from '../components/Button'
 
-export const CeremoniaRecepcion = () => {
+export const CeremoniaRecepcion = ({ guestData }) => {
     const ref = useRef();
     const isVisible = useIsVisible(ref);
-    const searchParams = useSearchParams();
-    const isVip = searchParams.get('vip');
+    const isVip = !!guestData?.vip;
 
     const Card = ({ title, place, address, time, mapLink, delay, isVipCard }) => (
         <div className={`flex-1 bg-card/90 backdrop-blur-sm p-8 md:p-12 shadow-sm ${isVipCard ? 'border-2 border-accent/60 ring-4 ring-accent/10' : 'border border-border'} flex flex-col items-center text-center gap-6 rounded-sm ${isVisible ? `animate-fade-up animate-duration-[1000ms] animate-delay-[${delay}ms]` : "opacity-0"}`}>

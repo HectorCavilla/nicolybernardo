@@ -9,16 +9,19 @@ import { Button } from "../components/Button"
 import { EnvelopeTicket } from "../components/EnvelopeTicket"
 import { fetcher } from '@/app/helpers/helpers'
 
-export const Info = () => {
+export const Info = ({ guestData, companionData }) => {
   const params = useParams()
   const [confirmed, setConfirmed] = useState(null)
   const invitacion = params.slug
   const { data: invitado, error, isLoading } = useSWR(invitacion ? `${process.env.API_URL}/api/invitados/info/${invitacion}` : null, fetcher, {
+    fallbackData: guestData,
     onSuccess: (data) => {
       setConfirmed(data.confirmado)
     }
   })
-  const { data: companiaInfo } = useSWR(() => invitado?.tipo === 2 ? `${process.env.API_URL}/api/acompanantes/${invitado.id_invitado}` : null, fetcher)
+  const { data: companiaInfo } = useSWR(() => invitado?.tipo === 2 ? `${process.env.API_URL}/api/acompanantes/${invitado.id_invitado}` : null, fetcher, {
+    fallbackData: companionData
+  })
   const ref = useRef()
   const isVisible = useIsVisible(ref)
 
@@ -49,7 +52,7 @@ export const Info = () => {
       {/* Overlapping Image */}
       <div className="absolute left-1/2 -translate-x-1/2 -top-24 w-10/12 max-w-md aspect-[3/4] md:aspect-square shadow-2xl rounded-sm overflow-hidden z-10 border-4 border-white">
         <Image
-          src="/nicol-y-bernardo/hugo-judith.webp"
+          src="/nicol-y-bernardo/nb-us.jpg"
           alt="Nicol y Bernardo"
           fill
           sizes="(max-width: 768px) 80vw, (max-width: 1200px) 50vw, 33vw"

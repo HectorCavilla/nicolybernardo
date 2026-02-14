@@ -52,8 +52,9 @@ export const DressCode = () => {
                                 className="w-12 h-12 rounded-full shadow-lg border-2 border-white"
                                 style={{ backgroundColor: color.hex }}
                             />
-                            {/* Optional: Show color name on hover or always */}
+                            {/* Optional: Show color name on hover or always
                             <span className="text-xs text-muted-foreground uppercase tracking-wider">{color.name}</span>
+                            */}
                         </div>
                     ))}
                 </div>

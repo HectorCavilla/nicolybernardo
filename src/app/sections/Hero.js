@@ -4,16 +4,15 @@ import { SlArrowDown } from "react-icons/sl";
 
 export const Hero = () => {
   const background = {
-    image: '/nicol-y-bernardo/bg-hugo-judith.webp',
-    translateY: [0, 50],
+    image: '/nicol-y-bernardo/nb-bghero.jpg',
+    translateY: [26, 50],
     opacity: [1, 0.5],
-    scale: [1.05, 1, 'easeOutCubic'],
     shouldAlwaysCompleteAnimation: true
   };
 
   const backgroundMobile = {
-    image: '/nicol-y-bernardo/bg-hugo-judith-mobile.webp',
-    translateY: [0, 50],
+    image: '/nicol-y-bernardo/nb-bghero-mobile.jpg',
+    translateY: [25, 50],
     opacity: [1, 0.5],
     scale: [1.05, 1, 'easeOutCubic'],
     shouldAlwaysCompleteAnimation: true
@@ -23,7 +22,7 @@ export const Hero = () => {
     opacity: [1, 1],
     shouldAlwaysCompleteAnimation: true,
     children: (
-      <div className="absolute inset-0 bg-black/40 w-full h-full" />
+      <div className="absolute inset-0 bg-black/10 w-full h-full" />
     ),
   };
 
@@ -60,10 +59,10 @@ export const Hero = () => {
     <div className="relative h-screen w-full overflow-hidden bg-gray-900">
       <ParallaxBanner
         layers={[backgroundMobile, overlay, content]}
-        className="w-full h-full md:hidden"
+        className="w-full h-full md:hidden inset-0"
       />
       <ParallaxBanner
-        layers={[background, overlay, content]}
+        layers={[background, content]}
         className="hidden w-full h-full md:block"
       />
     </div>

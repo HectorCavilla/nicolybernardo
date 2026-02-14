@@ -8,14 +8,14 @@ export const SaveTheDate = () => {
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
                 <Image
-                    src="/nicol-y-bernardo/galeria1.webp"
+                    src="/nicol-y-bernardo/nb-bgsavedate.jpg"
                     alt="Save the Date Background"
                     fill
-                    className="object-cover"
+                    className="object-fill bg-position-top"
                     priority
                 />
                 {/* Dark Overlay */}
-                <div className="absolute inset-0 bg-black/40" />
+                <div className="absolute inset-0 bg-black/20" />
             </div>
 
             {/* Content */}
