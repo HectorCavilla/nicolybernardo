@@ -47,10 +47,10 @@ export const Hero = () => {
 
           <div className="max-w-2xl px-6 text-center mt-24">
             <p className="text-white/90 text-lg md:text-xl font-light italic drop-shadow-md">
-              &quot;And now these three remain: faith, hope and love. But the greatest of these is love.&quot;
+              &quot;Como llama divina es el fuego ardiente del amor. Ni las muchas aguas pueden apagarlo, ni los ríos pueden extinguirlo.&quot;
             </p>
             <p className="text-white/80 text-sm mt-2 font-medium tracking-widest uppercase">
-              — 1 Corinthians 13:13
+              — Cantares 8:7
             </p>
           </div>
 

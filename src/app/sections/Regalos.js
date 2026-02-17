@@ -24,16 +24,16 @@ export const Regalos = () => {
             id: 2,
             name: 'AMAZON',
             color: '#FF9900', // Amazon Orange
-            event: 'A-100-XYZ',
-            link: 'https://www.amazon.com.mx/'
-        },
-        {
+            event: '1HZ1E8HFKUN9Q',
+            link: 'https://www.amazon.com.mx/wedding/guest-view/1HZ1E8HFKUN9Q'
+        }
+        /* {
             id: 3,
             name: 'PALACIO DE HIERRO',
             color: '#F4B400', // Palacio Gold-ish
             event: 'PH-998877',
             link: 'https://www.elpalaciodehierro.com/'
-        }
+        } */
     ]
 
     return (

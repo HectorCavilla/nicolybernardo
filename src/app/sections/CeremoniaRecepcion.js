@@ -56,10 +56,10 @@ export const CeremoniaRecepcion = ({ guestData }) => {
 
                 <Card
                     title="Recepción"
-                    place="Wayak Salón de Eventos"
-                    address="Av. Fonatur Calle Alerces CP.77533 Cancún Quintana Roo"
-                    time="17:00 horas"
-                    mapLink="https://maps.app.goo.gl/uwiJTuRF1Mh9GQGA7"
+                    place="Salón Entre Lagos"
+                    address="Supermanzana conocido, 76915 El Romeral, Qro."
+                    time="15:00 horas"
+                    mapLink="https://maps.app.goo.gl/ofM3sawJe9AaxGCs5?g_st=aw"
                     delay="400"
                 />
 
