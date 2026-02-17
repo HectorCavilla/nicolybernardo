@@ -147,13 +147,7 @@ export default function ListaInvitados() {
                                 <tbody className="divide-y divide-gray-50">
                                     {invitados.map((guest) => {
                                         // Construct WhatsApp Link
-                                        let whatsappUrl = `https://api.whatsapp.com/send?phone=${guest.telefono}&text=Familia%20y%20amigos%20,%20¡La%20cuenta%20regresiva%20a%20comenzado!%E2%9C%A8%F0%9F%95%B0%0A%0Ahttps://judithyhugo.com/${guest.slug}`;
-
-                                        // Append VIP parameter if guest is VIP
-                                        if (guest.vip) {
-                                            whatsappUrl += `?vip=true`;
-                                        }
-
+                                        let whatsappUrl = `https://api.whatsapp.com/send?phone=${guest.telefono}&text=Familia%20y%20amigos%20,%20¡La%20cuenta%20regresiva%20a%20comenzado!%E2%9C%A8%F0%9F%95%B0%0A%0Ahttps://nicolybernardo.vercel.app//${guest.slug}`;
                                         whatsappUrl += `%0A%0A¡Estás%20formalmente%20invitado/a%20a%20celebrar%20nuestra%20boda!%F0%9F%92%8D%0A%0APor%20favor,%20confirma%20tu%20asistencia%20antes%20del%201%20de%20Julio.%20%0A%0A¡Esperamos%20verte%20allí!%F0%9F%AB%B6%F0%9F%8F%BB`;
 
                                         return (
