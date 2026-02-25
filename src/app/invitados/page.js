@@ -1,20 +1,60 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import useSWR from 'swr'
 import { toast, ToastContainer } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import { deleteCookie } from 'cookies-next'; // You might need to install this or use document.cookie
-import { PiWhatsappLogoDuotone, PiUserPlusFill, PiSignOut } from "react-icons/pi"
-import { FaCheck, FaXmark, FaPen, FaTrash, FaStar, FaRegStar } from "react-icons/fa6"
+import { PiWhatsappLogoDuotone, PiUserPlusFill, PiSignOut, PiChatDotsFill, PiFloppyDiskFill, PiXBold } from "react-icons/pi"
+import { FaCheck, FaPen, FaTrash, FaStar, FaRegStar } from "react-icons/fa6"
 import { fetcher } from '@/app/helpers/helpers'
 import "react-toastify/dist/ReactToastify.css"
 
 export default function ListaInvitados() {
     const [invitados, setInvitados] = useState(null)
+    const [whatsappMessage, setWhatsappMessage] = useState("")
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [tempMessage, setTempMessage] = useState("")
+    const [isSaving, setIsSaving] = useState(false)
+
     const { error, isLoading, mutate } = useSWR(`${process.env.API_URL}/api/invitados/4`, fetcher, {
         onSuccess: (data) => setInvitados(data)
     })
+
+    // Fetch WhatsApp message
+    useEffect(() => {
+        fetch('/api/settings/whatsapp')
+            .then(res => res.json())
+            .then(data => {
+                if (data.message) {
+                    setWhatsappMessage(data.message)
+                    setTempMessage(data.message)
+                }
+            })
+            .catch(err => console.error("Error fetching whatsapp message:", err))
+    }, [])
+
+    const handleSaveMessage = async () => {
+        setIsSaving(true)
+        try {
+            const res = await fetch('/api/settings/whatsapp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: tempMessage })
+            })
+            if (res.ok) {
+                setWhatsappMessage(tempMessage)
+                setIsModalOpen(false)
+                toast.success("Mensaje de WhatsApp actualizado", { position: "bottom-right", theme: "colored" })
+            } else {
+                throw new Error("Failed to save")
+            }
+        } catch (error) {
+            toast.error("Error al guardar el mensaje", { position: "bottom-right", theme: "colored" })
+        } finally {
+            setIsSaving(false)
+        }
+    }
 
     const handleDelete = async (id) => {
         if (!confirm("¿Estás seguro de eliminar este invitado?")) return;
@@ -119,6 +159,17 @@ export default function ListaInvitados() {
                         <p className="text-gray-500 mt-2 text-sm uppercase tracking-wider">Gestión del Evento</p>
                     </div>
                     <div className="flex gap-3">
+                        <button
+                            onClick={() => {
+                                setTempMessage(whatsappMessage)
+                                setIsModalOpen(true)
+                            }}
+                            className="group relative inline-flex items-center gap-2 px-5 py-3 bg-white text-vino text-sm font-medium rounded-full shadow-sm hover:bg-vino hover:text-white hover:shadow-md transition-all duration-300"
+                            title="Configurar mensaje de WhatsApp"
+                        >
+                            <PiChatDotsFill className="text-lg" />
+                            <span className="hidden sm:inline">Mensaje WhatsApp</span>
+                        </button>
                         <button onClick={handleLogout} className="group relative inline-flex items-center gap-2 px-5 py-3 bg-white text-gray-600 text-sm font-medium rounded-full shadow-sm hover:text-red-500 hover:shadow-md transition-all duration-300">
                             <PiSignOut className="text-lg" />
                             <span>Salir</span>
@@ -147,8 +198,8 @@ export default function ListaInvitados() {
                                 <tbody className="divide-y divide-gray-50">
                                     {invitados.map((guest) => {
                                         // Construct WhatsApp Link
-                                        let whatsappUrl = `https://api.whatsapp.com/send?phone=${guest.telefono}&text=Familia%20y%20amigos%20,%20¡La%20cuenta%20regresiva%20a%20comenzado!%E2%9C%A8%F0%9F%95%B0%0A%0Ahttps://nicolybernardo.vercel.app//${guest.slug}`;
-                                        whatsappUrl += `%0A%0A¡Estás%20formalmente%20invitado/a%20a%20celebrar%20nuestra%20boda!%F0%9F%92%8D%0A%0APor%20favor,%20confirma%20tu%20asistencia%20antes%20del%201%20de%20Julio.%20%0A%0A¡Esperamos%20verte%20allí!%F0%9F%AB%B6%F0%9F%8F%BB`;
+                                        const finalMessage = whatsappMessage.replace('{slug}', guest.slug);
+                                        const whatsappUrl = `https://api.whatsapp.com/send?phone=${guest.telefono}&text=${encodeURIComponent(finalMessage)}`;
 
                                         return (
                                             <tr key={guest.id_invitado} className="hover:bg-vino/5 transition-colors duration-200 group">
@@ -233,6 +284,55 @@ export default function ListaInvitados() {
                     )}
                 </div>
             </div>
+
+            {/* WhatsApp Message Modal */}
+            {isModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-300">
+                    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+                        <div className="px-6 py-4 bg-vino text-white flex justify-between items-center">
+                            <div className="flex items-center gap-2">
+                                <PiChatDotsFill className="text-xl" />
+                                <h2 className="text-lg font-medium">Configurar Mensaje de WhatsApp</h2>
+                            </div>
+                            <button onClick={() => setIsModalOpen(false)} className="text-white/80 hover:text-white transition-colors">
+                                <PiXBold size={20} />
+                            </button>
+                        </div>
+                        <div className="p-6">
+                            <p className="text-sm text-gray-500 mb-4">
+                                Este es el mensaje base que se enviará a los invitados. Usa <span className="font-mono font-bold text-vino">{"{slug}"}</span> donde quieras que aparezca el enlace personalizado del invitado.
+                            </p>
+                            <textarea
+                                value={tempMessage}
+                                onChange={(e) => setTempMessage(e.target.value)}
+                                className="w-full h-64 p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-vino/20 focus:border-vino outline-none transition-all resize-none text-gray-700 font-sans"
+                                placeholder="Escribe el mensaje aquí..."
+                            />
+                            <div className="mt-6 flex justify-end gap-3">
+                                <button
+                                    onClick={() => setIsModalOpen(false)}
+                                    className="px-6 py-2 text-gray-600 hover:text-gray-800 font-medium transition-colors"
+                                >
+                                    Cancelar
+                                </button>
+                                <button
+                                    onClick={handleSaveMessage}
+                                    disabled={isSaving}
+                                    className="inline-flex items-center gap-2 px-8 py-2 bg-vino text-white font-medium rounded-full shadow-md hover:bg-vino/90 transition-all disabled:opacity-50"
+                                >
+                                    {isSaving ? "Guardando..." : (
+                                        <>
+                                            <PiFloppyDiskFill />
+                                            <span>Guardar Cambios</span>
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <ToastContainer />
         </main>
     )

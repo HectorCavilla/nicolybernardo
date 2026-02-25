@@ -6,12 +6,13 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { toast, ToastContainer } from 'react-toastify'
 import { PiArrowLeft, PiUserPlus } from "react-icons/pi"
 import { validationGuestTypeSchema } from '@/app/helpers/guestsHelpers'
+import { slugify } from '@/app/helpers/slugHelper'
 
 import "react-toastify/dist/ReactToastify.css"
 
 const AgregarInvitado = () => {
   const [guestType, setGuestType] = useState(null)
-  const { register, handleSubmit, formState: { errors }, resetField } = useForm({
+  const { register, handleSubmit, formState: { errors }, resetField, setValue } = useForm({
     resolver: zodResolver(validationGuestTypeSchema),
     mode: 'onChange'
   })
@@ -37,6 +38,17 @@ const AgregarInvitado = () => {
 
   const onSubmit = async (data) => {
     try {
+      // Check slug uniqueness
+      const guestsRes = await fetch(`${process.env.API_URL}/api/invitados/4`)
+      if (guestsRes.ok) {
+        const guests = await guestsRes.json()
+        const slugExists = guests.some(g => g.slug === data.slug)
+        if (slugExists) {
+          toast.error("Este slug ya está en uso. Por favor elige otro.", { position: "bottom-right", theme: "colored" })
+          return
+        }
+      }
+
       const res = await fetch(`${process.env.API_URL}/api/invitados/registrar`, {
         method: 'POST',
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
@@ -172,6 +184,10 @@ const AgregarInvitado = () => {
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400 text-sm">/</span>
                     <input type="text" id="slug" className={`${inputClass} pl-6`} placeholder="juan-perez-familia"
                       {...register('slug')}
+                      onChange={(e) => {
+                        const formattedSlug = slugify(e.target.value);
+                        setValue('slug', formattedSlug);
+                      }}
                     />
                   </div>
                   {errors.slug?.message && <p className="mt-1 text-xs text-red-500 font-medium">{errors.slug?.message}</p>}

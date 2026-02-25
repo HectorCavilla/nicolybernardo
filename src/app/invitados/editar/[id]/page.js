@@ -8,6 +8,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import { PiArrowLeft, PiUserGear } from "react-icons/pi"
 import { validationGuestTypeSchema } from '@/app/helpers/guestsHelpers'
 import { fetcher } from '@/app/helpers/helpers'
+import { slugify } from '@/app/helpers/slugHelper'
 
 import "react-toastify/dist/ReactToastify.css"
 
@@ -25,7 +26,7 @@ const EditarInvitado = ({ params }) => {
     }
   })
 
-  const { register, handleSubmit, formState: { errors }, resetField } = useForm({
+  const { register, handleSubmit, formState: { errors }, resetField, setValue } = useForm({
     resolver: zodResolver(validationGuestTypeSchema),
     mode: 'onChange'
   })
@@ -42,6 +43,21 @@ const EditarInvitado = ({ params }) => {
     }
 
     if (invitado.tipo === 2) invitadoData = { ...invitadoData, idAcompanante: invitado.id_acompanante }
+
+    // Check slug uniqueness
+    try {
+      const guestsRes = await fetch(`${process.env.API_URL}/api/invitados/4`)
+      if (guestsRes.ok) {
+        const guests = await guestsRes.json()
+        const slugExists = guests.some(g => g.slug === data.slug && g.id_invitado !== invitado.id_invitado)
+        if (slugExists) {
+          toast.error("Este slug ya está en uso. Por favor elige otro.", { position: "bottom-right", theme: "colored" })
+          return
+        }
+      }
+    } catch (err) {
+      console.error("Error checking slug uniqueness:", err)
+    }
 
     try {
       const res = await fetch(`${process.env.API_URL}/api/invitados/editar`, {
@@ -203,6 +219,10 @@ const EditarInvitado = ({ params }) => {
                     <input type="text" id="slug" className={`${inputClass} pl-6`} placeholder="juan-perez-familia"
                       defaultValue={invitado.slug}
                       {...register('slug')}
+                      onChange={(e) => {
+                        const formattedSlug = slugify(e.target.value);
+                        setValue('slug', formattedSlug);
+                      }}
                     />
                   </div>
                   {errors.slug?.message && <p className="mt-1 text-xs text-red-500 font-medium">{errors.slug?.message}</p>}
