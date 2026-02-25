@@ -50,7 +50,7 @@ module.exports = {
       fontFamily: {
         sans: ['Lato', 'sans-serif'],
         serif: ['Playfair Display', 'serif'],
-        script: ['Great Vibes', 'cursive'],
+        script: ['Rochester', 'cursive'],
         montserrat: ['Montserrat', 'sans-serif'],
         raleway: ['Raleway', 'sans-serif'],
       },

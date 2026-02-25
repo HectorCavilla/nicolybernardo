@@ -24,7 +24,7 @@ export const DressCode = () => {
 
                 {/* Header */}
                 <h2 className="font-script text-4xl md:text-6xl text-foreground">
-                    Dresscode / vestimenta
+                    Dresscode / Vestimenta
                 </h2>
 
                 {/* Hanger Icon */}

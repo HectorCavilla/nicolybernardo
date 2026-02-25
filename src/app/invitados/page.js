@@ -199,7 +199,7 @@ export default function ListaInvitados() {
                                     {invitados.map((guest) => {
                                         // Construct WhatsApp Link
                                         const finalMessage = whatsappMessage.replace('{slug}', guest.slug);
-                                        const whatsappUrl = `https://api.whatsapp.com/send?phone=${guest.telefono}&text=${encodeURIComponent(finalMessage)}`;
+                                        const whatsappUrl = `https://api.whatsapp.com/send?phone=+521${guest.telefono}&text=${encodeURIComponent(finalMessage)}`;
 
                                         return (
                                             <tr key={guest.id_invitado} className="hover:bg-vino/5 transition-colors duration-200 group">
