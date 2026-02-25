@@ -46,16 +46,7 @@ export const CeremoniaRecepcion = ({ guestData }) => {
             <div className="max-w-6xl w-full flex flex-col md:flex-row gap-8 lg:gap-12">
 
                 <Card
-                    title="Ceremonia"
-                    place="Santuario Maria Desatadora de Nudos"
-                    address="Av. 145 SM320 Polígono Sur, Jardines del Sur CP. 77536 Cancún Quintana Roo."
-                    time="14:30 horas"
-                    mapLink="https://maps.app.goo.gl/DEXbfjokfBvts2626"
-                    delay="200"
-                />
-
-                <Card
-                    title="Recepción"
+                    title="Ceremonia y Recepción"
                     place="Salón Entre Lagos"
                     address="Supermanzana conocido, 76915 El Romeral, Qro."
                     time="15:00 horas"
