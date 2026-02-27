@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-const filePath = path.join(process.cwd(), 'src/app/data/whatsappMessage.json');
+const filePath = path.join(process.cwd(), 'data/whatsappMessage.json');
 
 export async function GET() {
     try {
