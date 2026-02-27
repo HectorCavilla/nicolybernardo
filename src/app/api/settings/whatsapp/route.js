@@ -31,6 +31,11 @@ export async function POST(request) {
         fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
         return NextResponse.json({ success: true, message: 'Message updated successfully' });
     } catch (error) {
-        return NextResponse.json({ error: 'Failed to save message' }, { status: 500 });
+        console.error("Save error:", error);
+        return NextResponse.json({
+            error: 'Failed to save message',
+            details: error.message,
+            path: filePath
+        }, { status: 500 });
     }
 }
