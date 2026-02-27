@@ -1,41 +1,56 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
 
-const filePath = path.join(process.cwd(), 'data/whatsappMessage.json');
+const BACKEND_URL = process.env.API_URL;
+const EVENT_ID = 4;
 
 export async function GET() {
     try {
-        if (!fs.existsSync(filePath)) {
+        const res = await fetch(`${BACKEND_URL}/api/settings/whatsapp/${EVENT_ID}`, {
+            cache: 'no-store',
+            headers: {
+                'Accept': 'application/json',
+            }
+        });
+
+        if (!res.ok) {
             return NextResponse.json({ message: "" });
         }
-        const fileContent = fs.readFileSync(filePath, 'utf8');
-        const data = JSON.parse(fileContent);
+
+        const data = await res.json();
         return NextResponse.json(data);
     } catch (error) {
-        return NextResponse.json({ error: 'Failed to read message' }, { status: 500 });
+        console.error("Fetch error:", error);
+        return NextResponse.json({ error: 'Failed to read message from backend' }, { status: 500 });
     }
 }
 
 export async function POST(request) {
     try {
         const { message } = await request.json();
-        const data = { message };
 
-        // Ensure directory exists
-        const dir = path.dirname(filePath);
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, { recursive: true });
+        const res = await fetch(`${BACKEND_URL}/api/settings/whatsapp`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+                id_evento: EVENT_ID,
+                message: message
+            })
+        });
+
+        if (!res.ok) {
+            const errorData = await res.json().catch(() => ({}));
+            throw new Error(errorData.message || 'Backend save failed');
         }
 
-        fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
-        return NextResponse.json({ success: true, message: 'Message updated successfully' });
+        return NextResponse.json({ success: true, message: 'Message updated successfully in database' });
     } catch (error) {
         console.error("Save error:", error);
         return NextResponse.json({
             error: 'Failed to save message',
-            details: error.message,
-            path: filePath
+            details: error.message
         }, { status: 500 });
     }
 }
