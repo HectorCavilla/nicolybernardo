@@ -24,6 +24,18 @@ export const Footer = () => {
                     — Eclesiastés 4:12
                 </p>
             </div>
+
+            <div className="mt-8 text-xs text-muted-foreground flex sm:flex-row flex-col items-center justify-center gap-1 opacity-80 hover:opacity-100 transition-opacity">
+                <span>Invitación creada por:</span>
+                <a
+                    href="https://www.weddinvites.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-primary transition-colors duration-300 font-semibold underline underline-offset-2"
+                >
+                    Weddinvites.com
+                </a>
+            </div>
         </footer>
     )
 }
