@@ -7,6 +7,7 @@ import { DressCode } from './sections/DressCode'
 import { Countdown } from './sections/Countdown'
 import { Regalos } from './sections/Regalos'
 import { Footer } from './components/Footer'
+import { Padres } from './sections/Padres'
 
 export default function Home({ guestData, companionData }) {
   return (
@@ -14,6 +15,7 @@ export default function Home({ guestData, companionData }) {
       <main>
         <Hero />
         <Info guestData={guestData} companionData={companionData} />
+        <Padres />
         <SaveTheDate />
         <Suspense fallback={null}>
           <CeremoniaRecepcion guestData={guestData} />
